@@ -1,0 +1,39 @@
+class Dickhead : Actor
+{
+	Default
+	{
+		Health 100;
+		Radius 20;
+		Height 56;
+		Speed 8;
+		Mass 100;
+		Monster;
+		+FLOORCLIP;
+		+NOGRAVITY;
+	}
+	
+	States
+	{
+		Spawn:
+			DICK A 10 A_Look;
+			Loop;
+			
+		See:
+			DICK A 4 A_Chase;
+			Loop;
+			
+		Melee:
+			DICK A 8 A_FaceTarget;
+			DICK A 8 A_CustomMeleeAttack(random(3,8));
+			Goto See;
+			
+		Pain:
+			DICK A 4;
+			DICK A 4 A_Pain;
+			Goto See;
+			
+		Death:
+			DICK A 10;
+			Stop;
+	}
+}

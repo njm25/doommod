@@ -1,0 +1,31 @@
+class Dick : Weapon
+{
+	Default
+	{
+		Weapon.SlotNumber 4;
+		Weapon.AmmoUse1 0;
+		Weapon.SelectionOrder 2500;
+		+Weapon.NoAlert;
+	}
+
+	States
+	{
+		Spawn:
+			BLST A -1;
+			Stop;
+		Ready:
+			BLST A 1 A_WeaponReady;
+			Loop;
+		Deselect:
+			BLST A 1 A_Lower;
+			Loop;
+		Select:
+			BLST A 1 A_Raise;
+			Loop;
+		Fire:
+			BLST A 2 A_PlaySound("weapons/pistol");
+			BLST A 2 A_FireBullets(5.6, 0, 1, 5);
+			BLST A 2;
+			Goto Ready;
+	}
+}
