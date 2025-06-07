@@ -1,0 +1,37 @@
+class ScaleThinker : Thinker
+{
+	Actor target;
+	double startScaleX, startScaleY;
+	double endScaleX, endScaleY;
+	int duration;
+	int elapsed;
+
+	static ScaleThinker Create(Actor target, double startX, double startY, double endX, double endY, int dur)
+	{
+		ScaleThinker t = new("ScaleThinker");
+
+
+		t.target = target;
+		t.startScaleX = startX;
+		t.startScaleY = startY;
+		t.endScaleX = endX;
+		t.endScaleY = endY;
+		t.duration = dur;
+		t.elapsed = 0;
+		return t;
+	}
+
+	override void Tick()
+	{
+		if (target == null || elapsed >= duration)
+		{
+			Destroy();
+			return;
+		}
+
+		double t = double(elapsed) / duration;
+		target.Scale.X = startScaleX + t * (endScaleX - startScaleX);
+		target.Scale.Y = startScaleY + t * (endScaleY - startScaleY);
+		elapsed++;
+	}
+}

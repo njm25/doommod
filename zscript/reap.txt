@@ -6,7 +6,7 @@ class Reapose : Actor
         Height 56;
         Mass 400;
         Speed 8;
-        Health 400;
+        Health 200;
         PainChance 128;
         MONSTER;
         +FLOAT;
@@ -24,10 +24,10 @@ class Reapose : Actor
     States
     {
     Spawn:
-        REAP A 4 Bright;
-        REAP B 4 Bright;
-        REAP C 4 Bright;
-        REAP D 4 Bright;
+        REAP A 4 Bright A_Look;
+        REAP B 4 Bright A_Look;
+        REAP C 4 Bright A_Look;
+        REAP D 4 Bright A_Look;
         Loop;
 
     See:
@@ -37,30 +37,46 @@ class Reapose : Actor
         REAP D 4 Bright A_Chase;
         Loop;
 
-    Missile:
-        REAP D 2 Bright;
-        REAP E 2 Bright;
-        REAP F 2 Bright;
-        REAP G 2 Bright;
-        REAP H 6 Bright A_FaceTarget;
-        TNT1 A 0 A_CustomMissile("CacodemonBall", 32, 0, 0);
-        REAP G 2 Bright;
-        REAP F 2 Bright;
-        REAP E 2 Bright;
-        REAP D 2 Bright;
-        Goto See;
+	Missile:
+		REAP D 2 Bright;
+		REAP E 2 Bright;
+		REAP F 2 Bright;
+		REAP G 2 Bright;
+		REAP H 6 Bright A_FaceTarget;
+		TNT1 A 0 A_PlaySound("reapose/shoot", CHAN_WEAPON);
+		TNT1 A 0 A_CustomMissile("CacodemonBall", 32, 0, 0);
+		REAP G 2 Bright;
+		REAP F 2 Bright;
+		REAP E 2 Bright;
+		REAP D 2 Bright;
+		Goto See;
 
-    Pain:
-        REAP D 4;
-        REAP D 4 A_Pain;
-        Goto See;
+	Death:
+		REAP E 4 A_Scream;
+		REAP F 4;
+		REAP G 4;
+		REAP H 4;
+		REAP G 4 A_NoBlocking;
+		REAP F 4;
+		REAP E 4;
+		REAP D 6;
+		REAP C 6;
+		REAP B 8;
+		REAP A 10;
+		TNT1 A 0;
+		TNT1 A 0 StartShrinkThinker;
 
-    Death:
-        REAP D 6;
-        REAP E 6 A_Scream;
-        REAP F 6;
-        REAP G 6 A_NoBlocking;
-        REAP H -1;
-        Stop;
+
+		REAP H -1;
+		Stop;
+
+
+
+
     }
+	action void StartShrinkThinker()
+	{
+		ScaleThinker.Create(self, Scale.X, Scale.Y, 0.01, 0.005, 70);
+	}
+
 }

@@ -1,4 +1,5 @@
-version "4.3.3"
+version "4.12.2"
 #include "zscript/dick.txt"
 #include "zscript/dickhead.txt"
 #include "zscript/reap.txt"
+#include "zscript/scale_thinker.txt"
