@@ -1,0 +1,66 @@
+class Reapose : Actor
+{
+    Default
+    {
+        Radius 30;
+        Height 56;
+        Mass 400;
+        Speed 8;
+        Health 400;
+        PainChance 128;
+        MONSTER;
+        +FLOAT;
+        +NOGRAVITY;
+        +NOICEDEATH;
+
+		Scale 0.1;
+
+        SeeSound "cacodemon/sight";
+        AttackSound "cacodemon/attack";
+        PainSound "cacodemon/pain";
+        DeathSound "cacodemon/death";
+    }
+
+    States
+    {
+    Spawn:
+        REAP A 4 Bright;
+        REAP B 4 Bright;
+        REAP C 4 Bright;
+        REAP D 4 Bright;
+        Loop;
+
+    See:
+        REAP A 4 Bright A_Chase;
+        REAP B 4 Bright A_Chase;
+        REAP C 4 Bright A_Chase;
+        REAP D 4 Bright A_Chase;
+        Loop;
+
+    Missile:
+        REAP D 2 Bright;
+        REAP E 2 Bright;
+        REAP F 2 Bright;
+        REAP G 2 Bright;
+        REAP H 6 Bright A_FaceTarget;
+        TNT1 A 0 A_CustomMissile("CacodemonBall", 32, 0, 0);
+        REAP G 2 Bright;
+        REAP F 2 Bright;
+        REAP E 2 Bright;
+        REAP D 2 Bright;
+        Goto See;
+
+    Pain:
+        REAP D 4;
+        REAP D 4 A_Pain;
+        Goto See;
+
+    Death:
+        REAP D 6;
+        REAP E 6 A_Scream;
+        REAP F 6;
+        REAP G 6 A_NoBlocking;
+        REAP H -1;
+        Stop;
+    }
+}
