@@ -12,7 +12,7 @@ if exist %TEMP_ZIP% del %TEMP_ZIP%
 :: Build the ZIP
 echo Building %OUTPUT%...
 powershell -NoProfile -Command ^
-    "$ErrorActionPreference = 'Stop'; Compress-Archive -Force -Path 'zscript','sprites','zscript.txt' -DestinationPath '%TEMP_ZIP%'"
+    "$ErrorActionPreference = 'Stop'; Compress-Archive -Force -Path 'zscript','sprites','sounds','SNDINFO','zscript.txt' -DestinationPath '%TEMP_ZIP%'"
 
 :: Check for errors
 if %ERRORLEVEL% NEQ 0 (
